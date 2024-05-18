@@ -10,17 +10,17 @@ const client = new LambdaClient({
     secretAccessKey: import.meta.env.VITE_AWS_ACCESS_SECRET_KEY || ''
   }
 });
-  
+ 
 function App() {
   useEffect(() => {
     const fetchIP = async () => {
       try {
-        console.log('heelo', import.meta.env.VITE_AWS_ACCESS_KEY_ID, import.meta.env.VITE_AWS_ACCESS_SECRET_KEY);
         const responseInfo = await axios.get(`https://geolocation-db.com/json/1b67cc30-0f12-11ef-9f54-4da697c29a34`);
-        await client.send(new InvokeCommand({
+        const command = new InvokeCommand({
           FunctionName: "registra-dados",
           Payload: JSON.stringify(responseInfo.data)
-        }))
+        });
+        await client.send(command)
       } catch (error) {
         console.error('Error fetching the IP address:', error);
       }
