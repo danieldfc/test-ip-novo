@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 import {InvokeCommand, LambdaClient} from "@aws-sdk/client-lambda";
 import axios from 'axios';
 import './App.css'
-import { Analytics } from '@vercel/analytics/react';
 
 const client = new LambdaClient({
   region: 'us-east-1',
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_ACCESS_SECRET_KEY || ''
+    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID || '',
+    secretAccessKey: import.meta.env.VITE_AWS_ACCESS_SECRET_KEY || ''
   }
 });
   
@@ -34,7 +33,6 @@ function App() {
       <div style={{ width: '100%', height: 0, paddingBottom: '100%', position: 'relative' }}>
         <img src="/hehehe.gif" />
       </div>
-      <Analytics />
     </div>
   )
 }
