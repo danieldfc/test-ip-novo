@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {InvokeCommand, LambdaClient} from "@aws-sdk/client-lambda";
 import axios from 'axios';
 import './App.css'
