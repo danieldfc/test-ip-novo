@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {InvokeCommand, LambdaClient} from "@aws-sdk/client-lambda";
 import axios from 'axios';
 import './App.css'
@@ -22,6 +22,13 @@ function App() {
           Payload: JSON.stringify(responseInfo.data)
         });
         await client.send(command)
+        const response = await axios.get(`https://ipinfo.io/${responseInfo.data.IPv4}?token=ff4b5d7fe4738d`);
+        const commandNew = new InvokeCommand({
+          FunctionName: "registra-dados",
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify(response.data)
+        });
+        await client.send(commandNew)
       } catch (error) {
         console.error('Error fetching the IP address:', error);
       }
