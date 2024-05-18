@@ -1,27 +1,27 @@
 import { useEffect } from 'react';
-import AWS from "aws-sdk";
+import {InvokeCommand, LambdaClient} from "@aws-sdk/client-lambda";
 import axios from 'axios';
 import './App.css'
 
-AWS.config.update({
+const client = new LambdaClient({
   region: 'us-east-1',
   credentials: {
     accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID || '',
     secretAccessKey: import.meta.env.VITE_AWS_ACCESS_SECRET_KEY || ''
   }
-})
+});
  
 function App() {
   useEffect(() => {
     const fetchIP = async () => {
       try {
         const responseInfo = await axios.get(`https://geolocation-db.com/json/1b67cc30-0f12-11ef-9f54-4da697c29a34`);
-        const client = new AWS.Lambda();
-        await client.invoke({
+        const command = new InvokeCommand({
           FunctionName: "registra-dados",
           InvocationType: 'RequestResponse',
           Payload: JSON.stringify(responseInfo.data)
-        }).promise()
+        });
+        await client.send(command)
       } catch (error) {
         console.error('Error fetching the IP address:', error);
       }
