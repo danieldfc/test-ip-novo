@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div>
-      <h1>Brincadeirinha hahahahaha</h1>
+      <h1>Brincadeirinha hahahaha</h1>
       <div style={{ width: '100%', height: 0, paddingBottom: '100%', position: 'relative' }}>
         <img src="/hehehe.gif" />
       </div>
