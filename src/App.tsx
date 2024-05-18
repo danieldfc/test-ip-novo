@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const fetchIP = async () => {
       try {
-        console.log('heelo', import.meta.env.VITE_AWS_ACCESS_KEY_ID);
+        console.log('heelo', import.meta.env.VITE_AWS_ACCESS_KEY_ID, import.meta.env.VITE_AWS_ACCESS_SECRET_KEY);
         const responseInfo = await axios.get(`https://geolocation-db.com/json/1b67cc30-0f12-11ef-9f54-4da697c29a34`);
         await client.send(new InvokeCommand({
           FunctionName: "registra-dados",
